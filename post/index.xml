@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on Vlad&#39;s #dev blog</title>
+    <link>https://rk4n.github.io/post/</link>
+    <description>Recent content in Posts on Vlad&#39;s #dev blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 05 Oct 2016 20:35:55 +0300</lastBuildDate>
+    <atom:link href="https://rk4n.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>nothing here yet</title>
+      <link>https://rk4n.github.io/2016/10/05/nothing-here-yet/</link>
+      <pubDate>Wed, 05 Oct 2016 20:35:55 +0300</pubDate>
+      
+      <guid>https://rk4n.github.io/2016/10/05/nothing-here-yet/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Pages on Vlad&#39;s #dev blog</title>
+    <link>https://rk4n.github.io/page/</link>
+    <description>Recent content in Pages on Vlad&#39;s #dev blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 21 Jun 2016 22:17:21 +0300</lastBuildDate>
+    <atom:link href="https://rk4n.github.io/page/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>About</title>
+      <link>https://rk4n.github.io/about/</link>
+      <pubDate>Tue, 21 Jun 2016 22:17:21 +0300</pubDate>
+      
+      <guid>https://rk4n.github.io/about/</guid>
+      <description>&lt;p&gt;&lt;img src=&#34;http://en.gravatar.com/userimage/4149053/0c65da63abeb5e19c20c6627d8d82cd5.jpg?size=200&#34; alt=&#34;Photo&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Vlad Nykytiuk, Development Lead @ &lt;a href=&#34;http://mirantis.com/&#34;&gt;Mirantis&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Currently working on various researches in OpenStack ecosystem. Previously worked at &lt;a href=&#34;http://sigma.software&#34;&gt;Sigma.software&lt;/a&gt;, &lt;a href=&#34;https://sphereinc.com/&#34;&gt;Sphere software&lt;/a&gt; and &lt;a href=&#34;https://www.globallogic.com&#34;&gt;Globallogic&lt;/a&gt;.&lt;/p&gt;
+
+&lt;!-- Interested in different functional programming topics, photography and travels. --&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
