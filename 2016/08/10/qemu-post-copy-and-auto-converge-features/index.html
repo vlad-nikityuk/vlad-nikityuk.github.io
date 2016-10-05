@@ -66,8 +66,6 @@
 	        <section class="post-content">
 	            
 
-<h2 id="introduction">Introduction</h2>
-
 <p>Cloud life-cycle is a complex process that involves several procedures such as maintenance performing and upgrades. These operations mostly include migration of workloads. OpenStack provides several options to perform such moving:</p>
 
 <ul>
@@ -93,9 +91,9 @@
 <li>Does the migration <code>max_downtime</code> parameter have any impact on migration success?</li>
 </ol>
 
-<h2 id="test-harness">Test Harness</h2>
+<h1 id="test-harness">Test Harness</h1>
 
-<h3 id="test-environment">Test Environment</h3>
+<h2 id="test-environment">Test Environment</h2>
 
 <p>Our setup consists of two hypervisor nodes and one monitoring VM. The monitoring VM is running on a separate machine. Tests are executed from a workstation which is connected to same network as monitoring VM and hypervisor machines.</p>
 
@@ -140,7 +138,7 @@
 <li>Libvirt version: 1.3.5</li>
 </ul>
 
-<h3 id="tools">Tools</h3>
+<h2 id="tools">Tools</h2>
 
 <p>The test suite consists of 3 main parts:</p>
 
@@ -156,7 +154,7 @@
 <p>Influxdb is a time series database that is used for storing events from host hypervisors/instances.
 Migration monitor - special tool that allows to capture events from libvirt to measure live-migration time, timeouts, dirty pages rate.</p>
 
-<h3 id="test-scenarios">Test scenarios</h3>
+<h2 id="test-scenarios">Test scenarios</h2>
 
 <p>First set of scenarios is aimed to explore how different settings of auto-converge parameters affect the migration duration and outcome. For all tests we’ve used guest machines with 1 vCPU and 2Gb of RAM. As a baseline for load we’ve used 2 memory workers dirtying constantly 512Mb each, such load is sufficient to make default live migration last forever.</p>
 
@@ -290,7 +288,7 @@ Migration monitor - special tool that allows to capture events from libvirt to m
 
 <p><br/></p>
 
-<h2 id="test-results">Test Results</h2>
+<h1 id="test-results">Test Results</h1>
 
 <p>Graphical examples of the Live migration with default auto-converge, customized auto-converge and default post-copy modes. Each figure has three graphs: migration duration, mem dirtying rate and remaining memory dynamics. Each figure shows 5 min timeframe to make it easier to reason about migration duration. Load pattern is the same: 2 workers with 512Mb allocated for dirtying.</p>
 
@@ -394,11 +392,11 @@ Migration monitor - special tool that allows to capture events from libvirt to m
 <br/>
 <br/></p>
 
-<h2 id="conclusions">Conclusions</h2>
+<h1 id="conclusions">Conclusions</h1>
 
 <p>We were aiming to compare results for live-migration using different configurations for auto-converge and post-copy. From the results above, we see that post-copy performs much better than other techniques, except when compression is used simultaneously. We suggest to use post-copy whenever possible, taking into account the increased risk of VM image corruption or loss. In other cases we recommend to use auto-converge.</p>
 
-<h2 id="references">References</h2>
+<h1 id="references">References</h1>
 
 <p>The following materials were used:</p>
 
