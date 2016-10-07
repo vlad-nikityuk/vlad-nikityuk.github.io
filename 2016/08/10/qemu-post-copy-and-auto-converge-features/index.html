@@ -95,7 +95,7 @@
 
 <h2 id="test-environment">Test Environment</h2>
 
-<p>Our setup consists of two hypervisor nodes and one monitoring VM. The monitoring VM is running on a separate machine. Tests are executed from a workstation which is connected to the same network as monitoring VM and hypervisor machines.</p>
+<p>Our setup consists of two hypervisor nodes and one monitoring VM. The monitoring VM runs on a separate machine. Tests are executed from a workstation which is connected to the same network as monitoring VM and hypervisor machines.</p>
 
 <p>All servers have the same configuration:</p>
 
@@ -146,7 +146,7 @@
 <li>Orchestration - <a href="https://github.com/timofei-durakov/orchestra">Orchestra</a></li>
 <li>Metrics storage - <a href="https://www.influxdata.com/time-series-platform/influxdb/">Influxdb</a></li>
 <li>Monitoring agents, - <a href="https://www.influxdata.com/time-series-platform/telegraf/">Telegraf</a> and <a href="https://github.com/rk4n/migration-monitor">migration monitor</a>.</li>
-<li><a href="https://people.seas.harvard.edu/~apw/stress/">Stress</a> tool for dirtying the VM memory. ( example of cmdline parameters: <code>--vm 1 --vm-bytes 128M</code>. Number of workers and amount of memory per each.)</li>
+<li><a href="https://people.seas.harvard.edu/~apw/stress/">Stress</a> tool for dirtying the VM memory (example of cmdline parameters: <code>--vm 1 --vm-bytes 128M</code>. Number of workers and amount of memory per each).</li>
 </ol>
 
 <p>Orchestra is responsible for managing instances during scenario run(boot, live-migrate, etc.), and also enabling/disabling monitoring. Ansible playbooks are used for update-config/setup up monitoring on hypervisor nodes or booted instances.</p>
@@ -171,7 +171,7 @@ Migration monitor - a special tool that allows capturing events from libvirt to 
 <tr>
 <td align="center">1.</td>
 <td>2 workers, <br/> 512Mb mem allocated</td>
-<td><code>--auto-converge</code> <br/> default settings</td>
+<td><code>--auto-converge</code> <br/> <code>x-cpu-throttle-initial 20</code> <br/> <code>x-cpu-throttle-increment 10</code><br/><strong>default settings</strong>, see <a href="https://github.com/qemu/qemu/blob/507e4ddc3abf67391bcbc9624fd60b969c159b78/migration/migration.c#L55-L56">migration.c</a></td>
 </tr>
 
 <tr>
@@ -394,7 +394,11 @@ Migration monitor - a special tool that allows capturing events from libvirt to 
 
 <h1 id="conclusions">Conclusions</h1>
 
-<p>We were aiming to compare results for live-migration using different configurations for auto-converge and post-copy. From the results above, we see that post-copy performs much better than other techniques, except when compression is used simultaneously. We suggest using post-copy whenever possible, taking into account the increased risk of VM image corruption or loss. In other cases, we recommend to use auto-converge.</p>
+<p>Our aim was a comparison of different live migration techniques under various configuration parameters, in order demonstrate and recommend an appropriate usage of post-copy and auto-converge.</p>
+
+<p>From the results above, we see that post-copy performs much better than other techniques, except when compression is used simultaneously. It&rsquo;s actually not quite true, because during the post-copy phase VM performance degrades significantly, which was not measured.</p>
+
+<p>Both, auto-converge and post-copy, perform very well. In case you don’t want to lose your data don’t use post-copy. Something that still needs a research is how post-copy impacts workload running on a VM and a comparison of that with how auto-converge impacts the workload.</p>
 
 <h1 id="references">References</h1>
 
@@ -434,33 +438,10 @@ Migration monitor - a special tool that allows capturing events from libvirt to 
 			
 			
 
-	        <section class="share">
-	            <p class="backtotop"><a data-scroll href="#site-head"><i class="fa fa-lg fa-fw fa-angle-double-up"></i></a><a data-scroll class="backtotoptext" href="#site-head"> Back to top</a></p>
-	            <p class="info prompt">Share</p>
-	            <a href="http://twitter.com/share?text=QEMU%3a%20Post-Copy%20and%20Auto-Converge%20features&url=https%3a%2f%2frk4n.github.io%2f2016%2f08%2f10%2fqemu-post-copy-and-auto-converge-features%2f" title="Share on Twitter"
-	                onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
-	                <i class="fa fa-2x fa-fw fa-twitter-square"></i> <span class="hidden">Twitter</span>
-	            </a>
-	            <a href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2frk4n.github.io%2f2016%2f08%2f10%2fqemu-post-copy-and-auto-converge-features%2f" title="Share on Facebook"
-	                onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
-	                <i class="fa fa-2x fa-fw fa-facebook-square" style="margin-left: -8px"></i> <span class="hidden">Facebook</span>
-	            </a>
-	            <a href="https://plus.google.com/share?url=https%3a%2f%2frk4n.github.io%2f2016%2f08%2f10%2fqemu-post-copy-and-auto-converge-features%2f" title="Share on Google+"
-	               onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
-	                <i class="fa fa-2x fa-fw fa-google-plus-square" style="margin-left: -8px"></i> <span class="hidden">Google+</span>
-	            </a>
-	        </section>
-
-	        <footer class="post-footer">
-	            <section class="author">
-    <div class="authorimage" style="background: url(https://rk4n.github.io/img/avatar.jpg)"></div>
-    <h4>Vlad Nikityuk</h4>
-    <p class="bio">Making things better.</p>
-    <p class="meta">
-      
-    </p>
-</section>
-	        </footer>
+			
+	        
+	        
+	        
 	    </article>
 	</main>
 
