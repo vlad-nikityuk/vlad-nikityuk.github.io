@@ -76,7 +76,7 @@
 
 <p>From the list above only live migration allows moving an instance from one host to another with almost zero downtime, which is done seamlessly for the instance itself.</p>
 
-<p>In one of our previous researches we&rsquo;ve noticed that, by default, QEMU/KVM live migration has a pretty low <strong>convergence</strong> for heavy-loaded virtual machines. Convergence property reflects the ratio or difference between memory transfer speed and memory dirty speed during the live migration.</p>
+<p>In one of our previous researches we&rsquo;ve noticed that, by default, QEMU/KVM live migration has a pretty low <strong>convergence</strong> for heavy-loaded virtual machines. Convergence property reflects the ratio or difference between VM memory transfer speed and VM memory dirty speed during the live migration, if the memory transfer speed is higher or insignificantly lower, then live migration succeeds.</p>
 
 <p>In this post, we&rsquo;re going to analyze different QEMU features that may help live migrations converge. The most important features are Post-Copy and Auto-Converge.</p>
 
