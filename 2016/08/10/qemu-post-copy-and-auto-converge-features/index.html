@@ -412,7 +412,7 @@ The difference between scenarios 4 and 5 is that by default QEMU uses pre-copy, 
 
 <p>From the results above, we see that post-copy performs much better than other techniques, except when compression is used simultaneously. It&rsquo;s actually not quite true, because during the post-copy phase VM performance degrades significantly, which was not measured.</p>
 
-<p>Both, auto-converge and post-copy, perform very well. In case you don’t want to lose your data don’t use post-copy. Something that still needs a research is how post-copy impacts workload running on a VM and a comparison of that with how auto-converge impacts the workload.</p>
+<p>Both, auto-converge and post-copy, perform very well. Live migration in a post-copy mode can finish in a finite time. However, memory of a VM is spread between source and destination node, so in case of any failure there is a risk that the VM will need to be rebooted on destination. There is no such risk when using auto-converge, but it does not guarantee that live migration will end. Something that still needs a research is how post-copy impacts workload running on a VM and a comparison of that with how auto-converge impacts the workload.</p>
 
 <h1 id="references">References</h1>
 
