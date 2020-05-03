@@ -12,20 +12,6 @@
     
     
     <item>
-      <title>🐘Vacuum your Elephants - Part 2: How exactly vacuum </title>
-      <link>https://vlad-nikityuk.github.io/posts/002-postgres-vacuum/</link>
-      <pubDate>Fri, 01 May 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://vlad-nikityuk.github.io/posts/002-postgres-vacuum/</guid>
-      <description>https://www.postgresonline.com/journal/archives/78-Why-is-my-index-not-being-used.html
-https://tatiyants.com/pev/#/plans
-in the previous part (here) we discussed how important is to keep your database vacuumed, what effects improperly setup vacuum has , etc.
-in this post I&amp;rsquo;d like to dive a bit deep into the problem and understand why
- So what’s the reason for queries not using the right index?
-  The reason for that is table statistics. Postgres query planner uses statistics to make choices on query plans and estimate the number of rows that will be returned (you can read more about that here and here).</description>
-    </item>
-    
-    <item>
       <title>🚀 QEMU Live Migrations: Post-Copy and Auto-Converge features</title>
       <link>https://vlad-nikityuk.github.io/posts/001-qemu-libvirt-ac-pc/</link>
       <pubDate>Wed, 10 Aug 2016 15:59:04 +0300</pubDate>
