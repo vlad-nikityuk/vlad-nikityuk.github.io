@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Vlad&#39;s #dev blog</title>
-    <link>http://example.org/</link>
-    <description>Recent content on Vlad&#39;s #dev blog</description>
+    <title>Posts on Vlad&#39;s #dev blog</title>
+    <link>http://example.org/posts/</link>
+    <description>Recent content in Posts on Vlad&#39;s #dev blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 21 Jun 2016 22:17:21 +0300</lastBuildDate>
+    <lastBuildDate>Wed, 10 Aug 2016 15:59:04 +0300</lastBuildDate>
     
-	<atom:link href="http://example.org/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://example.org/posts/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -20,16 +20,6 @@
       <description>Cloud lifecycle is a complex process that involves several procedures such as maintenance and upgrades. These operations mostly include migration of workloads. OpenStack provides several options to perform such moving:
  Cold migration Live migrations Instance rebuilds  From the list above only live migration allows moving an instance from one host to another with almost zero downtime, which is done seamlessly for the instance itself.
 In one of our previous researches we&amp;rsquo;ve noticed that, by default, QEMU/KVM live migration has a pretty low convergence for heavy-loaded virtual machines.</description>
-    </item>
-    
-    <item>
-      <title>About</title>
-      <link>http://example.org/about/</link>
-      <pubDate>Tue, 21 Jun 2016 22:17:21 +0300</pubDate>
-      
-      <guid>http://example.org/about/</guid>
-      <description>Vlad Nykytiuk,
-I enjoy working on products that involve ML or NLP. I like building and working in agile teams that deliver value. Prevoiusly worked on knowledge graph in people.ai, Enterprise OpenStack features in Mirantis.</description>
     </item>
     
   </channel>
