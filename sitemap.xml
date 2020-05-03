@@ -3,31 +3,31 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>http://example.org/posts/</loc>
+    <loc>https://vlad-nikityuk.github.io/posts/</loc>
     <lastmod>2016-08-10T15:59:04+03:00</lastmod>
   </url>
   
   <url>
-    <loc>http://example.org/posts/qemu-libvirt-ac-pc/</loc>
+    <loc>https://vlad-nikityuk.github.io/posts/qemu-libvirt-ac-pc/</loc>
     <lastmod>2016-08-10T15:59:04+03:00</lastmod>
   </url>
   
   <url>
-    <loc>http://example.org/about/</loc>
+    <loc>https://vlad-nikityuk.github.io/about/</loc>
     <lastmod>2016-06-21T22:17:21+03:00</lastmod>
   </url>
   
   <url>
-    <loc>http://example.org/</loc>
+    <loc>https://vlad-nikityuk.github.io/</loc>
     <lastmod>2016-06-21T22:17:21+03:00</lastmod>
   </url>
   
   <url>
-    <loc>http://example.org/categories/</loc>
+    <loc>https://vlad-nikityuk.github.io/categories/</loc>
   </url>
   
   <url>
-    <loc>http://example.org/tags/</loc>
+    <loc>https://vlad-nikityuk.github.io/tags/</loc>
   </url>
   
 </urlset>
