@@ -2,23 +2,23 @@
 <html>
 <head>
 	<meta charset="utf-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>QEMU: Post-Copy and Auto-Converge features - Vlad&#39;s #dev blog</title><meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta itemprop="name" content="QEMU: Post-Copy and Auto-Converge features">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>🚀 QEMU Live Migrations: Post-Copy and Auto-Converge features - Vlad&#39;s #dev blog</title><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta itemprop="name" content="🚀 QEMU Live Migrations: Post-Copy and Auto-Converge features">
 <meta itemprop="description" content="In this post, we&#39;re going to analyze different QEMU features that may help live migrations converge. The most important features are Post-Copy and Auto-Converge.">
 <meta itemprop="datePublished" content="2016-08-10T15:59:04&#43;03:00" />
 <meta itemprop="dateModified" content="2016-08-10T15:59:04&#43;03:00" />
-<meta itemprop="wordCount" content="1583">
+<meta itemprop="wordCount" content="1589">
 
 
 
-<meta itemprop="keywords" content="" /><meta property="og:title" content="QEMU: Post-Copy and Auto-Converge features" />
+<meta itemprop="keywords" content="" /><meta property="og:title" content="🚀 QEMU Live Migrations: Post-Copy and Auto-Converge features" />
 <meta property="og:description" content="In this post, we&#39;re going to analyze different QEMU features that may help live migrations converge. The most important features are Post-Copy and Auto-Converge." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://vlad-nikityuk.github.io/posts/qemu-libvirt-ac-pc/" />
 <meta property="article:published_time" content="2016-08-10T15:59:04+03:00" />
 <meta property="article:modified_time" content="2016-08-10T15:59:04+03:00" />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="QEMU: Post-Copy and Auto-Converge features"/>
+<meta name="twitter:title" content="🚀 QEMU Live Migrations: Post-Copy and Auto-Converge features"/>
 <meta name="twitter:description" content="In this post, we&#39;re going to analyze different QEMU features that may help live migrations converge. The most important features are Post-Copy and Auto-Converge."/>
 <link href='https://fonts.googleapis.com/css?family=Playfair+Display:700' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" type="text/css" media="screen" href="https://vlad-nikityuk.github.io/css/normalize.css" />
@@ -42,7 +42,7 @@
 	
 	<h1 class="site-title"><a href="https://vlad-nikityuk.github.io/">Vlad&#39;s #dev blog</a></h1>
 	<div class="site-description"><p>A place for thoughts about tech</p><nav class="nav social">
-			<ul class="flat"><li><a href="https://github.com/vlad-nikityuk/" title="Github"><i data-feather="github"></i></a></li><li><a href="http://www.linkedin.com/in/vladimir-nikityuk" title="Linkedin"><i data-feather="linkedin"></i></a></li><li><a href="/index.xml" title="RSS"><i data-feather="rss"></i></a></li></ul>
+			<ul class="flat"><li><a href="/index.xml" title="RSS"><i data-feather="rss"></i></a></li></ul>
 		</nav><span class="scheme-toggle"><a href="#" id="scheme-toggle"></a></div>
 
 	<nav class="nav">
@@ -72,18 +72,20 @@
 					</div>
 				
 				<div class="matter">
-					<h1 class="title">QEMU: Post-Copy and Auto-Converge features</h1>
+					<h1 class="title">🚀 QEMU Live Migrations: Post-Copy and Auto-Converge features</h1>
 				</div>
 			</div>
 					
 			<div class="markdown">
-				<p>Cloud lifecycle is a complex process that involves several procedures such as maintenance and upgrades. These operations mostly include migration of workloads. OpenStack provides several options to perform such moving:</p>
+				<p><img src="/img/qemu-lv-1/unsplash.png" alt="img">
+<span style="font-size:0.7em;">Photo by <a href="https://unsplash.com/@7bbbailey?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Barth Bailey</a> on <a href="https://unsplash.com/s/photos/migrate?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Unsplash</a></span></p>
+<p>Cloud lifecycle is a complex process that involves several procedures such as maintenance and upgrades. These operations mostly include migration of workloads. OpenStack provides several options to perform such moving:</p>
 <ul>
 <li>Cold migration</li>
 <li>Live migrations</li>
 <li>Instance rebuilds</li>
 </ul>
-<p>From the list above only live migration allows moving an instance from one host to another with almost zero downtime, which is done seamlessly for the instance itself.</p>
+<p>From the list above only live migration allows moving an instance from one host to another with almost *zero downtime, which is done seamlessly for the instance itself.</p>
 <p>In one of our previous researches we&rsquo;ve noticed that, by default, QEMU/KVM live migration has a pretty low <strong>convergence</strong> for heavy-loaded virtual machines. Convergence property reflects the ratio or difference between VM memory transfer speed and VM memory dirty speed during the live migration, if the memory transfer speed is higher or insignificantly lower, then live migration succeeds.</p>
 <p>In this post, we&rsquo;re going to analyze different QEMU features that may help live migrations converge. The most important features are Post-Copy and Auto-Converge.</p>
 <p><strong>Auto-Converge</strong> (AC). The idea behind auto-converge is pretty simple — by throttling down the virtual CPU execution time, the guest machine is prevented from dirtying memory faster than memory can be transferred over the wire. By default, QEMU throttles vCPU by 20% and increases throttling rate by 10% each iteration. This guarantees the that guest machine eventually migrates.</p>
@@ -135,7 +137,7 @@
 <li>Orchestration - <a href="https://github.com/timofei-durakov/orchestra">Orchestra</a></li>
 <li>Metrics storage - <a href="https://www.influxdata.com/time-series-platform/influxdb/">Influxdb</a></li>
 <li>Monitoring agents, - <a href="https://www.influxdata.com/time-series-platform/telegraf/">Telegraf</a> and <a href="https://github.com/rk4n/migration-monitor">migration monitor</a>.</li>
-<li><a href="https://people.seas.harvard.edu/~apw/stress/">Stress</a> tool for dirtying the VM memory (example of cmdline parameters: <code>--vm 1 --vm-bytes 128M</code>. Number of workers and amount of memory per each).</li>
+<li><a href="https://linux.die.net/man/1/stress">Stress</a> tool for dirtying the VM memory (example of cmdline parameters: <code>--vm 1 --vm-bytes 128M</code>. Number of workers and amount of memory per each).</li>
 </ol>
 <p>Orchestra is responsible for managing instances during scenario run (boot, live-migrate, etc.), and also enabling/disabling monitoring. Ansible playbooks are used for update-config/setup up monitoring on hypervisor nodes or booted instances.</p>
 <p>Influxdb is a time series database that is used for storing events from host hypervisors/instances.
@@ -178,18 +180,18 @@ According to <a href="http://wiki.qemu.org/Features/AutoconvergeLiveMigration">F
 <tbody>
 <tr>
 <td align="center">1.</td>
-<td>2 workers, <!-- raw HTML omitted --> 512Mb mem allocated</td>
-<td><code>--auto-converge</code> <!-- raw HTML omitted --> <code>x-cpu-throttle-initial 20</code> <!-- raw HTML omitted --> <code>x-cpu-throttle-increment 10</code><!-- raw HTML omitted -->__default settings__, see <a href="https://github.com/qemu/qemu/blob/507e4ddc3abf67391bcbc9624fd60b969c159b78/migration/migration.c#L55-L56">migration.c</a></td>
+<td>2 workers, <br/> 512Mb mem allocated</td>
+<td><code>--auto-converge</code> <br/> <code>x-cpu-throttle-initial 20</code> <br/> <code>x-cpu-throttle-increment 10</code><br/>__default settings__, see <a href="https://github.com/qemu/qemu/blob/507e4ddc3abf67391bcbc9624fd60b969c159b78/migration/migration.c#L55-L56">migration.c</a></td>
 </tr>
 <tr>
 <td align="center">2.</td>
 <td><em>same</em></td>
-<td><code>--auto-converge</code> <!-- raw HTML omitted --> <code>x-cpu-throttle-initial 30</code> <!-- raw HTML omitted --> <code>x-cpu-throttle-increment 15</code></td>
+<td><code>--auto-converge</code> <br/> <code>x-cpu-throttle-initial 30</code> <br/> <code>x-cpu-throttle-increment 15</code></td>
 </tr>
 <tr>
 <td align="center">3.</td>
 <td><em>same</em></td>
-<td><code>--auto-converge</code> <!-- raw HTML omitted --> <code>x-cpu-throttle-initial 50</code> <!-- raw HTML omitted --> <code>x-cpu-throttle-increment 20</code></td>
+<td><code>--auto-converge</code> <br/> <code>x-cpu-throttle-initial 50</code> <br/> <code>x-cpu-throttle-increment 20</code></td>
 </tr>
 </tbody>
 </table>
@@ -206,18 +208,18 @@ The difference between scenarios 4 and 5 is that by default QEMU uses pre-copy, 
 <tbody>
 <tr>
 <td align="center">4.</td>
-<td>2 workers, <!-- raw HTML omitted --> 512Mb mem allocated</td>
-<td><code>--auto-converge</code> <!-- raw HTML omitted --> <code>--timeout-postcopy</code> <!-- raw HTML omitted --> <code>--timeout 60</code></td>
+<td>2 workers, <br/> 512Mb mem allocated</td>
+<td><code>--auto-converge</code> <br/> <code>--timeout-postcopy</code> <br/> <code>--timeout 60</code></td>
 </tr>
 <tr>
 <td align="center">5.</td>
 <td><em>same</em></td>
-<td><code>--postcopy</code> <!-- raw HTML omitted --> <code>--postcopy-after-precopy</code></td>
+<td><code>--postcopy</code> <br/> <code>--postcopy-after-precopy</code></td>
 </tr>
 <tr>
 <td align="center">6.</td>
 <td><em>same</em></td>
-<td><code>--postcopy</code> <!-- raw HTML omitted --> <code>--postcopy-after-precopy</code> <!-- raw HTML omitted --> <code>--compressed</code></td>
+<td><code>--postcopy</code> <br/> <code>--postcopy-after-precopy</code> <br/> <code>--compressed</code></td>
 </tr>
 </tbody>
 </table>
@@ -233,16 +235,16 @@ The difference between scenarios 4 and 5 is that by default QEMU uses pre-copy, 
 <tbody>
 <tr>
 <td align="center">7.</td>
-<td>3 workers, <!-- raw HTML omitted --> 512Mb mem allocated</td>
-<td><code>--auto-converge</code> <!-- raw HTML omitted --> <code>x-cpu-throttle-initial 50</code> <!-- raw HTML omitted --> <code>x-cpu-throttle-increment 20</code></td>
+<td>3 workers, <br/> 512Mb mem allocated</td>
+<td><code>--auto-converge</code> <br/> <code>x-cpu-throttle-initial 50</code> <br/> <code>x-cpu-throttle-increment 20</code></td>
 </tr>
 <tr>
 <td align="center">8.</td>
 <td><em>same</em></td>
-<td><code>--postcopy</code> <!-- raw HTML omitted --> <code>--postcopy-after-precopy</code></td>
+<td><code>--postcopy</code> <br/> <code>--postcopy-after-precopy</code></td>
 </tr>
 <tr>
-<td align="center"><!-- raw HTML omitted --></td>
+<td align="center"><br/></td>
 <td></td>
 <td></td>
 </tr>
@@ -260,43 +262,43 @@ The difference between scenarios 4 and 5 is that by default QEMU uses pre-copy, 
 <tbody>
 <tr>
 <td align="center">9.</td>
-<td>3 workers, <!-- raw HTML omitted --> 512Mb mem allocated</td>
-<td><code>--auto-converge</code> <!-- raw HTML omitted --> default settings</td>
+<td>3 workers, <br/> 512Mb mem allocated</td>
+<td><code>--auto-converge</code> <br/> default settings</td>
 </tr>
 <tr>
 <td align="center">10.</td>
 <td><em>same</em></td>
-<td><code>--auto-converge</code> <!-- raw HTML omitted --> <code>migrate-setmaxdowntime 1000</code></td>
+<td><code>--auto-converge</code> <br/> <code>migrate-setmaxdowntime 1000</code></td>
 </tr>
 <tr>
 <td align="center">11.</td>
 <td><em>same</em></td>
-<td><code>--auto-converge</code> <!-- raw HTML omitted --> <code>migrate-setmaxdowntime 5000</code></td>
+<td><code>--auto-converge</code> <br/> <code>migrate-setmaxdowntime 5000</code></td>
 </tr>
 </tbody>
 </table>
-<!-- raw HTML omitted -->
+<br/>
 <h1 id="test-results">Test Results</h1>
 <p>Graphical examples of the Live migration with default auto-converge, customized auto-converge and default post-copy modes. Each figure has three graphs: migration duration, mem dirtying rate, and remaining memory dynamics. Each figure shows 5 min timeframe to make it easier to reason about migration duration. Load pattern is the same: 2 workers with 512Mb allocated for dirtying.</p>
 <p><img src="/img/qemu-lv-1/1.png" alt="Figure 1">
 <em>Figure 1 — default auto-converge</em>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted --></p>
+<br/>
+<br/></p>
 <p><img src="/img/qemu-lv-1/2.png" alt="Figure 2">
 <em>Figure 2 — customized auto-converge (initial: 30%, increment: 15%)</em>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted --></p>
+<br/>
+<br/></p>
 <p><img src="/img/qemu-lv-1/3.png" alt="Figure 3">
 <em>Figure 3 — post-copy</em>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted --></p>
+<br/>
+<br/></p>
 <p>Test results for the first two sets of scenarios (auto-converge and post-copy with baseline load config):</p>
 <p><img src="/img/qemu-lv-1/0_chart_0.png" alt="Figure 4">
 <em>Figure 4 — auto-converge and post-copy comparison chart</em>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted --></p>
+<br/>
+<br/></p>
 <p>First three scenarios look pretty reasonable: QEMU with default settings for auto-converge migrates machine in 252 seconds, with more tough custom parameters migration time decreases. Scenario #4 showed slightly better results rather than #1 which requires some additional investigation, as QEMU should turn on post-copy (which we see in #5 and #6 is much faster compared to auto-converge) after 60 seconds.
-<!-- raw HTML omitted --></p>
+<br/></p>
 <p>Success rate for all scenarios except #6 is 100% :</p>
 <table>
 <thead>
@@ -335,26 +337,26 @@ The difference between scenarios 4 and 5 is that by default QEMU uses pre-copy, 
 <p>With increased load (3 workers, 512Mb allocated) situation is pretty the same for auto-converge and post-copy: auto-converge is much slower than post-copy.</p>
 <p><img src="/img/qemu-lv-1/0_chart_1.png" alt="Figure 5">
 <em>Figure 5 — auto-converge and post-copy comparison chart for increased load</em>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted --></p>
+<br/>
+<br/></p>
 <p>The final part is the comparison of different settings for the <code>max_downtime</code> parameter. Greater <code>max_downtime</code> you have, less time to migrate you need.</p>
 <p>Each figure shows <strong>7 min</strong> timeframe. Default <code>max_downtime</code> value for QEMU is 300(ms), according to QEMU source code (2.6.0 release branch).</p>
 <p><img src="/img/qemu-lv-1/4.png" alt="Figure 6">
 <em>Figure 6 — Auto-converge with default <code>max_downtime</code> settings</em>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted --></p>
+<br/>
+<br/></p>
 <p><img src="/img/qemu-lv-1/5.png" alt="Figure 7">
 <em>Figure 7 — Auto-converge with <code>max_downtime</code> set to 1000 (ms)</em></p>
 <p>This is a less realistic scenario (<code>max_downtime = 5000ms</code>), it is shown just to compare it with 1000ms and 300ms. A better option is to use OpenStack Nova <code>force_complete</code> feature that allows heavy loaded machines that cannot be live-migrated to be paused during the migration.</p>
 <p><img src="/img/qemu-lv-1/6.png" alt="Figure 8">
 <em>Figure 8 — Auto-converge with <code>max_downtime</code> set to 5000 (ms)</em>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted --></p>
+<br/>
+<br/></p>
 <p>And summary chart looks like this:
 <img src="/img/qemu-lv-1/0_chart_2.png" alt="Figure 9">
 <em>Figure 9 — auto-converge with different <code>max_downtime</code> settings</em>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted --></p>
+<br/>
+<br/></p>
 <h1 id="conclusions">Conclusions</h1>
 <p>Our aim was a comparison of different live migration techniques under various configuration parameters, in order to demonstrate and recommend an appropriate usage of post-copy and auto-converge.</p>
 <p>From the results above, we see that post-copy performs much better than other techniques, except when compression is used simultaneously. It&rsquo;s actually not quite true, because during the post-copy phase VM performance degrades significantly, which was not measured.</p>
