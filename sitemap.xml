@@ -4,11 +4,16 @@
   
   <url>
     <loc>https://vlad-nikityuk.github.io/posts/</loc>
-    <lastmod>2016-08-10T15:59:04+03:00</lastmod>
+    <lastmod>2020-05-01T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://vlad-nikityuk.github.io/posts/qemu-libvirt-ac-pc/</loc>
+    <loc>https://vlad-nikityuk.github.io/posts/002-postgres-vacuum/</loc>
+    <lastmod>2020-05-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://vlad-nikityuk.github.io/posts/001-qemu-libvirt-ac-pc/</loc>
     <lastmod>2016-08-10T15:59:04+03:00</lastmod>
   </url>
   

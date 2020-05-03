@@ -6,20 +6,34 @@
     <description>Recent content in Posts on Vlad&#39;s #dev blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 10 Aug 2016 15:59:04 +0300</lastBuildDate>
+    <lastBuildDate>Fri, 01 May 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://vlad-nikityuk.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>QEMU: Post-Copy and Auto-Converge features</title>
-      <link>https://vlad-nikityuk.github.io/posts/qemu-libvirt-ac-pc/</link>
+      <title>🐘Vacuum your Elephants - Part 2: How exactly vacuum </title>
+      <link>https://vlad-nikityuk.github.io/posts/002-postgres-vacuum/</link>
+      <pubDate>Fri, 01 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://vlad-nikityuk.github.io/posts/002-postgres-vacuum/</guid>
+      <description>https://www.postgresonline.com/journal/archives/78-Why-is-my-index-not-being-used.html
+https://tatiyants.com/pev/#/plans
+in the previous part (here) we discussed how important is to keep your database vacuumed, what effects improperly setup vacuum has , etc.
+in this post I&amp;rsquo;d like to dive a bit deep into the problem and understand why
+ So what’s the reason for queries not using the right index?
+  The reason for that is table statistics. Postgres query planner uses statistics to make choices on query plans and estimate the number of rows that will be returned (you can read more about that here and here).</description>
+    </item>
+    
+    <item>
+      <title>🚀 QEMU Live Migrations: Post-Copy and Auto-Converge features</title>
+      <link>https://vlad-nikityuk.github.io/posts/001-qemu-libvirt-ac-pc/</link>
       <pubDate>Wed, 10 Aug 2016 15:59:04 +0300</pubDate>
       
-      <guid>https://vlad-nikityuk.github.io/posts/qemu-libvirt-ac-pc/</guid>
-      <description>Cloud lifecycle is a complex process that involves several procedures such as maintenance and upgrades. These operations mostly include migration of workloads. OpenStack provides several options to perform such moving:
- Cold migration Live migrations Instance rebuilds  From the list above only live migration allows moving an instance from one host to another with almost zero downtime, which is done seamlessly for the instance itself.
-In one of our previous researches we&amp;rsquo;ve noticed that, by default, QEMU/KVM live migration has a pretty low convergence for heavy-loaded virtual machines.</description>
+      <guid>https://vlad-nikityuk.github.io/posts/001-qemu-libvirt-ac-pc/</guid>
+      <description>Photo by Barth Bailey on Unsplash
+Cloud lifecycle is a complex process that involves several procedures such as maintenance and upgrades. These operations mostly include migration of workloads. OpenStack provides several options to perform such moving:
+ Cold migration Live migrations Instance rebuilds  From the list above only live migration allows moving an instance from one host to another with almost *zero downtime, which is done seamlessly for the instance itself.</description>
     </item>
     
   </channel>
