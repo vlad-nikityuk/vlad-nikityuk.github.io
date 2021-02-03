@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Vlad&#39;s #dev blog</title>
-    <link>https://rk4n.github.io/</link>
+    <link>https://vlad-nikityuk.github.io/</link>
     <description>Recent content on Vlad&#39;s #dev blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 10 Aug 2016 15:59:04 +0300</lastBuildDate><atom:link href="https://rk4n.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 10 Aug 2016 15:59:04 +0300</lastBuildDate><atom:link href="https://vlad-nikityuk.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>About</title>
-      <link>https://rk4n.github.io/about/</link>
+      <link>https://vlad-nikityuk.github.io/about/</link>
       <pubDate>Fri, 01 May 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://rk4n.github.io/about/</guid>
+      <guid>https://vlad-nikityuk.github.io/about/</guid>
       <description>Vlad Nikityuk,
 I enjoy working on products that involve ML or NLP. I like building and working in agile teams that deliver value. Currently - Engineer in Grammarly. Prevoiusly worked on knowledge graph in people.ai, Enterprise OpenStack features in Mirantis.
   Linkedin: http://www.linkedin.com/in/vladimir-nikityuk
@@ -22,10 +22,10 @@ I enjoy working on products that involve ML or NLP. I like building and working 
     
     <item>
       <title>🚀 QEMU Live Migrations: Post-Copy and Auto-Converge features</title>
-      <link>https://rk4n.github.io/2016/08/10/qemu-live-migrations-post-copy-and-auto-converge-features/</link>
+      <link>https://vlad-nikityuk.github.io/2016/08/10/qemu-live-migrations-post-copy-and-auto-converge-features/</link>
       <pubDate>Wed, 10 Aug 2016 15:59:04 +0300</pubDate>
       
-      <guid>https://rk4n.github.io/2016/08/10/qemu-live-migrations-post-copy-and-auto-converge-features/</guid>
+      <guid>https://vlad-nikityuk.github.io/2016/08/10/qemu-live-migrations-post-copy-and-auto-converge-features/</guid>
       <description>Photo by Barth Bailey on Unsplash
 Cloud lifecycle is a complex process that involves several procedures such as maintenance and upgrades. These operations mostly include migration of workloads. OpenStack provides several options to perform such moving:
  Cold migration Live migrations Instance rebuilds  From the list above only live migration allows moving an instance from one host to another with almost *zero downtime, which is done seamlessly for the instance itself.</description>
