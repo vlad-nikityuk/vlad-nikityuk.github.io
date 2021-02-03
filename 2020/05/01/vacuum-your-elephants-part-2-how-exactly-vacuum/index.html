@@ -10,13 +10,14 @@ in the previous part (here) we discussed how important is to keep your database 
 in this post I&rsquo;d like to dive a bit deep into the problem and understand why
  So what’s the reason for queries not using the right index?
   The reason for that is table statistics. Postgres query planner uses statistics to make choices on query plans and estimate the number of rows that will be returned (you can read more about that here and here).">
-<meta itemprop="datePublished" content="2020-05-01T00:00:00&#43;00:00" />
-<meta itemprop="dateModified" content="2020-05-01T00:00:00&#43;00:00" />
+<meta itemprop="datePublished" content="2020-05-01T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2020-05-01T00:00:00+00:00" />
 <meta itemprop="wordCount" content="156">
 
 
 
-<meta itemprop="keywords" content="" /><meta property="og:title" content="🐘Vacuum your Elephants - Part 2: How exactly vacuum " />
+<meta itemprop="keywords" content="" />
+<meta property="og:title" content="🐘Vacuum your Elephants - Part 2: How exactly vacuum " />
 <meta property="og:description" content="https://www.postgresonline.com/journal/archives/78-Why-is-my-index-not-being-used.html
 https://tatiyants.com/pev/#/plans
 in the previous part (here) we discussed how important is to keep your database vacuumed, what effects improperly setup vacuum has , etc.

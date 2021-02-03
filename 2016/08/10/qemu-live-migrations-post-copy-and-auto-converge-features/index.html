@@ -5,13 +5,14 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>🚀 QEMU Live Migrations: Post-Copy and Auto-Converge features - Vlad&#39;s #dev blog</title><meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta itemprop="name" content="🚀 QEMU Live Migrations: Post-Copy and Auto-Converge features">
 <meta itemprop="description" content="In this post, we&#39;re going to analyze different QEMU features that may help live migrations converge. The most important features are Post-Copy and Auto-Converge.">
-<meta itemprop="datePublished" content="2016-08-10T15:59:04&#43;03:00" />
-<meta itemprop="dateModified" content="2016-08-10T15:59:04&#43;03:00" />
+<meta itemprop="datePublished" content="2016-08-10T15:59:04+03:00" />
+<meta itemprop="dateModified" content="2016-08-10T15:59:04+03:00" />
 <meta itemprop="wordCount" content="1589">
 
 
 
-<meta itemprop="keywords" content="" /><meta property="og:title" content="🚀 QEMU Live Migrations: Post-Copy and Auto-Converge features" />
+<meta itemprop="keywords" content="" />
+<meta property="og:title" content="🚀 QEMU Live Migrations: Post-Copy and Auto-Converge features" />
 <meta property="og:description" content="In this post, we&#39;re going to analyze different QEMU features that may help live migrations converge. The most important features are Post-Copy and Auto-Converge." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://vlad-nikityuk.github.io/2016/08/10/qemu-live-migrations-post-copy-and-auto-converge-features/" />
@@ -77,7 +78,7 @@
 			</div>
 					
 			<div class="markdown">
-				<p><img src="/img/qemu-lv-1/unsplash.png" alt="img">
+				<p><img src="/img/qemu-lv-1/unsplash.jpg" alt="img">
 <span style="font-size:0.7em;">Photo by <a href="https://unsplash.com/@7bbbailey?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Barth Bailey</a> on <a href="https://unsplash.com/s/photos/migrate?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Unsplash</a></span></p>
 <p>Cloud lifecycle is a complex process that involves several procedures such as maintenance and upgrades. These operations mostly include migration of workloads. OpenStack provides several options to perform such moving:</p>
 <ul>
@@ -172,24 +173,24 @@ According to <a href="http://wiki.qemu.org/Features/AutoconvergeLiveMigration">F
 <table>
 <thead>
 <tr>
-<th align="center">#</th>
+<th style="text-align:center">#</th>
 <th>Load</th>
 <th>Auto-Converge params</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="center">1.</td>
+<td style="text-align:center">1.</td>
 <td>2 workers, <br/> 512Mb mem allocated</td>
-<td><code>--auto-converge</code> <br/> <code>x-cpu-throttle-initial 20</code> <br/> <code>x-cpu-throttle-increment 10</code><br/>__default settings__, see <a href="https://github.com/qemu/qemu/blob/507e4ddc3abf67391bcbc9624fd60b969c159b78/migration/migration.c#L55-L56">migration.c</a></td>
+<td><code>--auto-converge</code> <br/> <code>x-cpu-throttle-initial 20</code> <br/> <code>x-cpu-throttle-increment 10</code><br/><strong>default settings</strong>, see <a href="https://github.com/qemu/qemu/blob/507e4ddc3abf67391bcbc9624fd60b969c159b78/migration/migration.c#L55-L56">migration.c</a></td>
 </tr>
 <tr>
-<td align="center">2.</td>
+<td style="text-align:center">2.</td>
 <td><em>same</em></td>
 <td><code>--auto-converge</code> <br/> <code>x-cpu-throttle-initial 30</code> <br/> <code>x-cpu-throttle-increment 15</code></td>
 </tr>
 <tr>
-<td align="center">3.</td>
+<td style="text-align:center">3.</td>
 <td><em>same</em></td>
 <td><code>--auto-converge</code> <br/> <code>x-cpu-throttle-initial 50</code> <br/> <code>x-cpu-throttle-increment 20</code></td>
 </tr>
@@ -200,24 +201,24 @@ The difference between scenarios 4 and 5 is that by default QEMU uses pre-copy, 
 <table>
 <thead>
 <tr>
-<th align="center">#</th>
+<th style="text-align:center">#</th>
 <th>Load</th>
 <th>Post-Copy params</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="center">4.</td>
+<td style="text-align:center">4.</td>
 <td>2 workers, <br/> 512Mb mem allocated</td>
 <td><code>--auto-converge</code> <br/> <code>--timeout-postcopy</code> <br/> <code>--timeout 60</code></td>
 </tr>
 <tr>
-<td align="center">5.</td>
+<td style="text-align:center">5.</td>
 <td><em>same</em></td>
 <td><code>--postcopy</code> <br/> <code>--postcopy-after-precopy</code></td>
 </tr>
 <tr>
-<td align="center">6.</td>
+<td style="text-align:center">6.</td>
 <td><em>same</em></td>
 <td><code>--postcopy</code> <br/> <code>--postcopy-after-precopy</code> <br/> <code>--compressed</code></td>
 </tr>
@@ -227,24 +228,24 @@ The difference between scenarios 4 and 5 is that by default QEMU uses pre-copy, 
 <table>
 <thead>
 <tr>
-<th align="center">#</th>
+<th style="text-align:center">#</th>
 <th>Load</th>
 <th>Auto-Converge/Post-Copy params</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="center">7.</td>
+<td style="text-align:center">7.</td>
 <td>3 workers, <br/> 512Mb mem allocated</td>
 <td><code>--auto-converge</code> <br/> <code>x-cpu-throttle-initial 50</code> <br/> <code>x-cpu-throttle-increment 20</code></td>
 </tr>
 <tr>
-<td align="center">8.</td>
+<td style="text-align:center">8.</td>
 <td><em>same</em></td>
 <td><code>--postcopy</code> <br/> <code>--postcopy-after-precopy</code></td>
 </tr>
 <tr>
-<td align="center"><br/></td>
+<td style="text-align:center"><br/></td>
 <td></td>
 <td></td>
 </tr>
@@ -254,24 +255,24 @@ The difference between scenarios 4 and 5 is that by default QEMU uses pre-copy, 
 <table>
 <thead>
 <tr>
-<th align="center">#</th>
+<th style="text-align:center">#</th>
 <th>Load</th>
 <th>Post-Copy params</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="center">9.</td>
+<td style="text-align:center">9.</td>
 <td>3 workers, <br/> 512Mb mem allocated</td>
 <td><code>--auto-converge</code> <br/> default settings</td>
 </tr>
 <tr>
-<td align="center">10.</td>
+<td style="text-align:center">10.</td>
 <td><em>same</em></td>
 <td><code>--auto-converge</code> <br/> <code>migrate-setmaxdowntime 1000</code></td>
 </tr>
 <tr>
-<td align="center">11.</td>
+<td style="text-align:center">11.</td>
 <td><em>same</em></td>
 <td><code>--auto-converge</code> <br/> <code>migrate-setmaxdowntime 5000</code></td>
 </tr>
