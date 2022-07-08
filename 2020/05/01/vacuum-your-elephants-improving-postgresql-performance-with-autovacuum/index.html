@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>🐘 Vacuum your Elephants: improving PostgreSQL performance with autovacuum - Vlad&#39;s #dev blog</title><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta itemprop="name" content="🐘 Vacuum your Elephants: improving PostgreSQL performance with autovacuum">
+<meta itemprop="description" content="This story is about how we faced some critical performance issues with one of our database replicas and how we resolved all that burden with the correct Postgres autovacuum config."><meta itemprop="datePublished" content="2020-05-01T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2020-05-01T00:00:00+00:00" />
+<meta itemprop="wordCount" content="1077">
+<meta itemprop="keywords" content="" /><meta property="og:title" content="🐘 Vacuum your Elephants: improving PostgreSQL performance with autovacuum" />
+<meta property="og:description" content="This story is about how we faced some critical performance issues with one of our database replicas and how we resolved all that burden with the correct Postgres autovacuum config." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://vlad-nikityuk.github.io/2020/05/01/vacuum-your-elephants-improving-postgresql-performance-with-autovacuum/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2020-05-01T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-05-01T00:00:00+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="🐘 Vacuum your Elephants: improving PostgreSQL performance with autovacuum"/>
+<meta name="twitter:description" content="This story is about how we faced some critical performance issues with one of our database replicas and how we resolved all that burden with the correct Postgres autovacuum config."/>
+<link href='https://fonts.googleapis.com/css?family=Playfair+Display:700' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" type="text/css" media="screen" href="https://vlad-nikityuk.github.io/css/normalize.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="https://vlad-nikityuk.github.io/css/main.css" />
+		<link rel="stylesheet" type="text/css" href="https://vlad-nikityuk.github.io/css/custom.css" />
+	
+
+        <link id="dark-scheme" rel="stylesheet" type="text/css" href="https://vlad-nikityuk.github.io/css/dark.css" />
+
+	<script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+		<script src="https://vlad-nikityuk.github.io/js/main.js"></script>
+</head>
+
+<body>
+	<div class="container wrapper">
+		<div class="header">
+	
+		<div class="avatar">
+			<a href="https://vlad-nikityuk.github.io/">
+				<img src="https://en.gravatar.com/userimage/4149053/a560f832e47ce216ad824221cc9430bc.jpg?size=64" alt="Vlad&#39;s #dev blog" />
+			</a>
+		</div>
+	
+	<h1 class="site-title"><a href="https://vlad-nikityuk.github.io/">Vlad&#39;s #dev blog</a></h1>
+	<div class="site-description"><p>A place for thoughts about tech</p><nav class="nav social">
+			<ul class="flat"><li><a href="/index.xml" title="RSS"><i data-feather="rss"></i></a></li></ul>
+		</nav>
+	</div>
+
+	<nav class="nav">
+		<ul class="flat">
+			
+			<li>
+				<a href="/">Home</a>
+			</li>
+			
+			<li>
+				<a href="/about/">About</a>
+			</li>
+			
+		</ul>
+	</nav>
+</div>
+
+
+		<div class="post">
+			<div class="post-header">
+				
+					<div class="meta">
+						<div class="date">
+							<span class="day">01</span>
+							<span class="rest">May 2020</span>
+						</div>
+					</div>
+				
+				<div class="matter">
+					<h1 class="title">🐘 Vacuum your Elephants: improving PostgreSQL performance with autovacuum</h1>
+				</div>
+			</div>
+					
+			<div class="markdown">
+				<p><img src="/img/vacuum_1/vacuum_1.jpeg" alt="img"></p>
+<p>Written by: Vlad Nikityuk and <a href="https://medium.com/@valentin_5114">Valentin Lavrinenko</a>.</p>
+<p>Originally posted in the <a href="https://medium.com/people-ai-engineering/vacuum-your-elephants-improving-postgresql-performance-with-autovacuum-c3aab3593f19">People.ai Engineering Blog</a></p>
+<p>People.ai helps companies increase sales and marketing effectiveness by providing business data insights and helping with data input automation. At People.ai, we use various relational and NoSQL databases to process and store business data. In this article, we will focus on the PostgreSQL database, its internals, and some of the performance tweaks.</p>
+<p>This story is about how we faced some critical performance issues with one of our database replicas and how we resolved all that burden with the correct Postgres autovacuum config.</p>
+<h2 id="the-problem-emerges">The problem emerges</h2>
+<p>A few months ago, we noticed a rapidly increasing CPU load on one of our database replicas that is used in one of our processing pipelines. This happened during the onboarding of a big enterprise client. High CPU load on the database led to significant performance degradation of the data pipeline and finally slowed down the onboarding and also the real-time data processing.</p>
+<img src="/img/vacuum_1/1.png" width="500px" />
+<p>Customer onboarding starts with the data ingestion process. Customer business data that we ingest usually consists of:</p>
+<ul>
+<li>CRM business objects (contacts, accounts, deals)</li>
+<li>Activity data (emails, calls, calendar events)</li>
+</ul>
+<p>Once we’ve ingested CRM data we start processing activity data, which usually has a much higher volume and takes more time to complete. For one of the activity processing steps, a Postgres database is used as lookup storage for CRM data. We perform many different read queries against the database for each activity we process and there might be various reasons for high CPU load.</p>
+<p>We started with Postgres’s slow query log and saw lots of queries that each took from 6 to 8 seconds. Further examination showed that all those queries were not using the index they were supposed to use, which led to much more expensive query execution costs. With even slightly increased load, all those inefficient queries overloaded the database.</p>
+<p>So what’s the reason for queries not using the right index?</p>
+<p>The reason for that is table statistics. Postgres query planner uses statistics to make choices on query plans and estimate the number of rows that will be returned (you can read more about that <a href="https://www.postgresql.org/docs/10/planner-stats.html">here</a> and <a href="https://www.citusdata.com/blog/2018/03/06/postgres-planner-and-its-usage-of-statistics/">here</a>).</p>
+<h2 id="autovacuum-to-the-rescue">Autovacuum to the rescue</h2>
+<p>Statistics are updated by running the ANALYZE command. It can be executed manually, or by autovacuum process, separately or together with VACUUM. The VACUUM command also has to run regularly (see PostgreSQL documentation for details). In our case, the statistics were outdated because we have just ingested tons of CRM data into our database and it didn’t have enough time to run autovacuum.</p>
+<p>The very first and naive solution that we did to fix the problem — we ran the ANALYZE command, this helped to resolve the issue right away, but there’s no guarantee that it will not happen again.</p>
+<img src="/img/vacuum_1/4.png" width="500px" />
+<p>A few words on how autovacuum works. It is allowed to run simultaneously at most <code>autovacuum_max_workers</code> (3 by default) workers. Each worker picks a table that needs to be vacuumed and/or analyzed based on respective <code>autovacuum_*_threshold</code> and <code>autovacuum_*_scale_factor</code> settings: for example, VACUUM will be triggered after <code>autovacuum_vacuum_threshold + autovacuum_vacuum_scale_factor * table_size</code> tuples are updated or deleted in the table.</p>
+<p>Autovacuum is also throttled according to autovacuum_vacuum_cost_limit and autovacuum_vacuum_cost_delay settings (read more <a href="https://www.postgresql.org/docs/10/runtime-config-autovacuum.html">here</a>). The default values of those settings are reasonable in most cases, but your mileage may vary, and ours certainly did.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#007020;font-weight:bold">SELECT</span><span style="color:#bbb"> </span>pid,<span style="color:#bbb"> </span><span style="color:#007020;font-weight:bold">state</span>,<span style="color:#bbb"> </span>age(clock_timestamp(),<span style="color:#bbb"> </span>query_start),<span style="color:#bbb"> </span>usename,<span style="color:#bbb"> </span>query<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#007020;font-weight:bold">FROM</span><span style="color:#bbb"> </span>pg_stat_activity<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#007020;font-weight:bold">WHERE</span><span style="color:#bbb"> </span><span style="color:#007020;font-weight:bold">state</span><span style="color:#bbb"> </span><span style="color:#666">!=</span><span style="color:#bbb"> </span><span style="">‘</span>idle<span style="">’</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#007020;font-weight:bold">AND</span><span style="color:#bbb"> </span>query<span style="color:#bbb"> </span><span style="color:#007020;font-weight:bold">ILIKE</span><span style="color:#bbb"> </span><span style="">‘</span><span style="color:#666">%</span><span style="color:#007020;font-weight:bold">vacuum</span><span style="color:#666">%</span><span style="">’</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#007020;font-weight:bold">AND</span><span style="color:#bbb"> </span>query<span style="color:#bbb"> </span><span style="color:#007020;font-weight:bold">NOT</span><span style="color:#bbb"> </span><span style="color:#007020;font-weight:bold">LIKE</span><span style="color:#bbb"> </span><span style="">‘</span><span style="color:#666">%</span>pg_stat_activity<span style="color:#666">%</span><span style="">’</span><span style="color:#bbb">
+</span></span></span></code></pre></div><p>And we discovered that all the workers were constantly busy. Some of the tables didn’t get vacuumed for a long time, which caused not just outdated stats but also the proportion of dead tuples (deleted rows) to grow, impacting the overall database performance. The rate of modifications in many of our tables was just too big, so we’ve changed the <code>autovacuum_vacuum_cost_limit</code> from 200 to 1000, and the <code>autovacuum_vacuum_cost_delay</code> from 10 to 5. This allowed autovacuum to complete much faster (hours instead of weeks, minutes instead of days), and now we can see that most of the time there is no VACUUM running and tables are being vacuumed and analyzed in a timely manner.</p>
+<p>Another important consideration is when to start the automatic VACUUM and ANALYZE. Many articles (see <a href="https://www.2ndquadrant.com/en/blog/autovacuum-tuning-basics/">here</a> and <a href="https://blog.newrelic.com/product-news/tuning-postgresql-autovacuum/">here</a> for examples) recommend using more aggressive settings, to make autovacuum run more often, which makes it run faster. It didn’t work for us, though. What we’ve seen was that for large tables (hundreds of millions of rows), even when running on a freshly vacuumed table, the next VACUUM still took a relatively long time; increased VACUUM frequency resulted in an increase (instead of decrease) in total vacuum time for a given table. So, we’ve actually made autovacuum less aggressive, changing the autovacuum_vacuum_scale_factor from 0.1 to 0.2 and <code>autovacuum_vacuum_threshold</code> from 50 to 10,000. Autoanalyze, on the other hand, is very fast and doesn’t consume many resources. We already knew that our data modification patterns sometimes result in skewed statistics, so we’ve made the autoanalyze more aggressive, with <code>autovacuum_analyze_scale_factor</code> or 0.01 instead of 0.05.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>Despite the fact that we had to learn a bit more about Postgres internals in order to make it work efficiently 🙃, we have achieved pretty good results — improved data pipeline reliability for onboarding and improved system overall performance by cleaning the storage from dead tuples.</p>
+<p>There is a great quote from an article by Joel Spolsky — <a href="https://www.joelonsoftware.com/2002/11/11/the-law-of-leaky-abstractions/">The Law of Leaky Abstractions</a></p>
+<blockquote>
+<p>A famous example of this is that some SQL servers are dramatically faster if you specify “where a=b and b=c and a=c” than if you only specify “where a=b and b=c” even though the result set is the same. You’re not supposed to have to care about the procedure, only the specification. But sometimes the abstraction leaks and causes horrible performance and you have to break out the query plan analyzer and study what it did wrong, and figure out how to make your query run faster.</p>
+</blockquote>
+<p>Joel reasons about abstractions, software complexity and comes to the conclusion that “All non-trivial abstractions, to some degree, are leaky.” That basically means that whatever abstraction you are using there will be a case when you will need to dive one level deeper to understand what is actually happening, like in our case with autovacuum.</p>
+<p>Read more about our experience with PostgreSQL in these past articles:</p>
+<ul>
+<li><a href="https://medium.com/people-ai-engineering/herding-the-elephants-moving-data-from-postgresql-to-hive-999ea18df8fc">Herding the Elephants: moving data from PostgreSQL to Hive</a></li>
+<li><a href="https://medium.com/people-ai-engineering/3-minute-guide-to-postgresql-roles-and-permissions-3f2d80f1a5b8">3-Minute Guide to PostgreSQL Roles and Permissions</a></li>
+</ul>
+
+			</div>
+
+			<div class="tags">
+				
+					
+				
+			</div><div id="disqus_thread"></div>
+<script type="text/javascript">
+	(function () {
+		
+		
+		if (window.location.hostname == "localhost")
+			return;
+
+		var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+		var disqus_shortname = 'rk4n-gh-blog';
+		dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	})();
+</script>
+<noscript>Please enable JavaScript to view the </a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+	</div>
+	<div class="footer wrapper">
+	<nav class="nav">
+		<div>2022  <a href="https://github.com/knadh/hugo-ink">Ink</a> theme on <a href="https://gohugo.io">Hugo</a></div>
+	</nav>
+</div>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-50360509-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<script>feather.replace()</script>
+</body>
+</html>

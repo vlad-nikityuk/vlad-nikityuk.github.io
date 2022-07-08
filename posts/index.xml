@@ -2,20 +2,32 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts on Vlad&#39;s #dev blog</title>
-    <link>https://rk4n.github.io/posts/</link>
+    <link>https://vlad-nikityuk.github.io/posts/</link>
     <description>Recent content in Posts on Vlad&#39;s #dev blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 10 Aug 2016 15:59:04 +0300</lastBuildDate><atom:link href="https://rk4n.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 01 May 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://vlad-nikityuk.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>🐘 Vacuum your Elephants: improving PostgreSQL performance with autovacuum</title>
+      <link>https://vlad-nikityuk.github.io/2020/05/01/vacuum-your-elephants-improving-postgresql-performance-with-autovacuum/</link>
+      <pubDate>Fri, 01 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://vlad-nikityuk.github.io/2020/05/01/vacuum-your-elephants-improving-postgresql-performance-with-autovacuum/</guid>
+      <description>Written by: Vlad Nikityuk and Valentin Lavrinenko.
+Originally posted in the People.ai Engineering Blog
+People.ai helps companies increase sales and marketing effectiveness by providing business data insights and helping with data input automation. At People.ai, we use various relational and NoSQL databases to process and store business data. In this article, we will focus on the PostgreSQL database, its internals, and some of the performance tweaks.
+This story is about how we faced some critical performance issues with one of our database replicas and how we resolved all that burden with the correct Postgres autovacuum config.</description>
+    </item>
+    
     <item>
       <title>🚀 QEMU Live Migrations: Post-Copy and Auto-Converge features</title>
-      <link>https://rk4n.github.io/2016/08/10/qemu-live-migrations-post-copy-and-auto-converge-features/</link>
+      <link>https://vlad-nikityuk.github.io/2016/08/10/qemu-live-migrations-post-copy-and-auto-converge-features/</link>
       <pubDate>Wed, 10 Aug 2016 15:59:04 +0300</pubDate>
       
-      <guid>https://rk4n.github.io/2016/08/10/qemu-live-migrations-post-copy-and-auto-converge-features/</guid>
+      <guid>https://vlad-nikityuk.github.io/2016/08/10/qemu-live-migrations-post-copy-and-auto-converge-features/</guid>
       <description>Photo by Barth Bailey on Unsplash
 Cloud lifecycle is a complex process that involves several procedures such as maintenance and upgrades. These operations mostly include migration of workloads. OpenStack provides several options to perform such moving:
- Cold migration Live migrations Instance rebuilds  From the list above only live migration allows moving an instance from one host to another with almost *zero downtime, which is done seamlessly for the instance itself.</description>
+Cold migration Live migrations Instance rebuilds From the list above only live migration allows moving an instance from one host to another with almost *zero downtime, which is done seamlessly for the instance itself.</description>
     </item>
     
   </channel>

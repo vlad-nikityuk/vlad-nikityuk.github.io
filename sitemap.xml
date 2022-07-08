@@ -1,33 +1,24 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
-  
   <url>
-    <loc>https://rk4n.github.io/about/</loc>
+    <loc>https://vlad-nikityuk.github.io/2020/05/01/vacuum-your-elephants-improving-postgresql-performance-with-autovacuum/</loc>
     <lastmod>2020-05-01T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://rk4n.github.io/posts/</loc>
+  </url><url>
+    <loc>https://vlad-nikityuk.github.io/about/</loc>
+    <lastmod>2020-05-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://vlad-nikityuk.github.io/posts/</loc>
+    <lastmod>2020-05-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://vlad-nikityuk.github.io/</loc>
+    <lastmod>2020-05-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://vlad-nikityuk.github.io/2016/08/10/qemu-live-migrations-post-copy-and-auto-converge-features/</loc>
     <lastmod>2016-08-10T15:59:04+03:00</lastmod>
+  </url><url>
+    <loc>https://vlad-nikityuk.github.io/categories/</loc>
+  </url><url>
+    <loc>https://vlad-nikityuk.github.io/tags/</loc>
   </url>
-  
-  <url>
-    <loc>https://rk4n.github.io/</loc>
-    <lastmod>2016-08-10T15:59:04+03:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://rk4n.github.io/2016/08/10/qemu-live-migrations-post-copy-and-auto-converge-features/</loc>
-    <lastmod>2016-08-10T15:59:04+03:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://rk4n.github.io/categories/</loc>
-  </url>
-  
-  <url>
-    <loc>https://rk4n.github.io/tags/</loc>
-  </url>
-  
 </urlset>
