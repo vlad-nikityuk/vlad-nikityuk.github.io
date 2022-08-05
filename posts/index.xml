@@ -27,7 +27,7 @@ This story is about how we faced some critical performance issues with one of ou
       <guid>https://vlad-nikityuk.github.io/2016/08/10/qemu-live-migrations-post-copy-and-auto-converge-features/</guid>
       <description>Photo by Barth Bailey on Unsplash
 Cloud lifecycle is a complex process that involves several procedures such as maintenance and upgrades. These operations mostly include migration of workloads. OpenStack provides several options to perform such moving:
-Cold migration Live migrations Instance rebuilds From the list above only live migration allows moving an instance from one host to another with almost *zero downtime, which is done seamlessly for the instance itself.</description>
+ Cold migration Live migrations Instance rebuilds  From the list above only live migration allows moving an instance from one host to another with almost *zero downtime, which is done seamlessly for the instance itself.</description>
     </item>
     
   </channel>
