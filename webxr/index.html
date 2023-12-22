@@ -10,7 +10,7 @@
     <title>360 Photos</title>
   </head>
   <body>
-    <!-- <header> -->
+    <header>
       <!-- <details open>
         <summary>360 Photos</summary>
         <p>
@@ -20,9 +20,9 @@
           <a class="back" href="./">Back</a>
         </p>
       </details> -->
-    <!-- </header> -->
+    </header>
     <script type="module">
-      // import {WebXRButton} from './js/util/webxr-button.js';
+      import {WebXRButton} from './js/util/webxr-button.js';
       import {Scene, WebXRView} from './js/render/scenes/scene.js';
       import {Renderer, createWebGLContext} from './js/render/core/renderer.js';
       import {Gltf2Node} from './js/render/nodes/gltf2.js';
@@ -52,16 +52,15 @@
       }));
 
       function initXR() {
-        // xrButton = new WebXRButton({
-        //   onRequestSession: onRequestSession,
-        //   onEndSession: onEndSession
-        // });
-        // document.querySelector('header').appendChild(xrButton.domElement);
+        xrButton = new WebXRButton({
+          onRequestSession: onRequestSession,
+          onEndSession: onEndSession
+        });
+        document.querySelector('header').appendChild(xrButton.domElement);
 
         if (navigator.xr) {
           navigator.xr.isSessionSupported('immersive-vr').then((supported) => {
-            // xrButton.enabled = supported;
-            onRequestSession();
+            xrButton.enabled = supported;
           });
 
           navigator.xr.requestSession('inline').then(onSessionStarted);
@@ -90,7 +89,7 @@
 
       function onRequestSession() {
         return navigator.xr.requestSession('immersive-vr').then((session) => {
-          // xrButton.setSession(session);
+          xrButton.setSession(session);
           session.isImmersive = true;
           onSessionStarted(session);
         });
@@ -129,7 +128,7 @@
 
       function onSessionEnded(event) {
         if (event.session.isImmersive) {
-          // xrButton.setSession(null);
+          xrButton.setSession(null);
         }
       }
 
