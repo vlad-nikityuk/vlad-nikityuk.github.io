@@ -5,3 +5,8 @@ code {
 .highlight pre {
     background-color: #fafaface;
 }
+
+.header nav.navh {
+    border-top: 0;
+    padding-top: 80px;
+}
