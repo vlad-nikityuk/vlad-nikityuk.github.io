@@ -1,6 +1,3 @@
 User-agent: *
 Allow: /
-
-
 Sitemap: https://vlad-nikityuk.github.io/sitemap.xml
-
