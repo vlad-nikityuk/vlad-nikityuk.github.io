@@ -32,7 +32,7 @@ html.dark h6 {
   color: #ddd;
 }
 
-html.dark a,a:hover {
+html.dark a, html.dark a:hover {
   color: #9375fd;
   text-decoration: none;
 }
@@ -56,6 +56,15 @@ html.dark .post-tags .tags a {
   color: #ddd;
 }
 
+.post .tags a  {
+  color:  #8362fd;
+  border: 1px solid #8362fd;
+}
+
+a:hover {
+  border-bottom: 2px solid #8362fd;
+}
+
 html.dark .site-title a {
   color: #ddd;
   text-decoration: none !important;
@@ -68,4 +77,23 @@ html.dark .footer {
 
 html.dark .highlight {
   background-color: #333;
+}
+
+html.dark .header .site-description .scheme-toggle a svg {
+    fill: #f8e04f !important;
+    color: #f8e04f !important;
+}
+
+html.dark td pre code {
+  color: #333;
+}
+
+html.dark code:not(pre *)  {
+  color: #ddd;
+  background-color: #333;
+}
+
+html.dark .section-nav li.active > a {
+  font-weight: 600;
+  color: #ddd;
 }

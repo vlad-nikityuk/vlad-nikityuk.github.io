@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap');
-
 body {
     font-family: "Inter", sans-serif;
     font-weight: 400;
@@ -13,11 +11,12 @@ a {
     text-decoration: none;
     word-break: break-word;
 }
-    a:hover {
-        border-bottom: 2px solid #3700ff;
-    }
 
-html,button,input,select,textarea {
+a:hover {
+    border-bottom: 2px solid #3700ff;
+}
+
+html, button, input, select, textarea {
     color: #333;
 }
 
@@ -49,7 +48,7 @@ img {
 }
 
 a img {
-    border:none;
+    border: none;
 }
 
 figure {
@@ -64,38 +63,40 @@ fieldset {
 }
 
 table {
-  -ms-overflow-style: -ms-autohiding-scrollbar;
-  -webkit-overflow-scrolling: touch;
-  background-color: transparent;
-  margin-bottom: 1rem;
-  overflow-x: auto;
-  width: 100%;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+    -webkit-overflow-scrolling: touch;
+    background-color: transparent;
+    margin-bottom: 1rem;
+    overflow-x: auto;
+    width: 100%;
 }
 
 table th,
 table td {
-  border-bottom: 1px solid #dee2e6;
-  padding: 0.75rem;
-  vertical-align: top;
+    border-bottom: 1px solid #dee2e6;
+    padding: 0.75rem;
+    vertical-align: top;
 }
 
 table thead th {
-  border-bottom: 2px solid #dee2e6;
-  vertical-align: bottom;
+    border-bottom: 2px solid #dee2e6;
+    vertical-align: bottom;
 }
 
-table tbody + tbody {
-  border-top: 2px solid #dee2e6;
+table tbody+tbody {
+    border-top: 2px solid #dee2e6;
 }
 
+/* Breaks gists
 table tbody tr:nth-of-type(even) {
   background-color: rgba(0, 0, 0, 0.15);
 }
+*/
 
 table th {
-  background-color: #212529;
-  border-color: #32383e;
-  color: #fff;
+    background-color: #212529;
+    border-color: #32383e;
+    color: #fff;
 }
 
 textarea {
@@ -105,11 +106,11 @@ textarea {
 blockquote {
     margin-left: 1rem;
     font-style: italic;
-    font-size: 1.4rem;
-    font-family: Georgia,bitstream charter,serif;
+    font-size: 1.1rem;
+    font-family: Georgia, bitstream charter, serif;
     border-left: 3px solid;
     border-color: #3700ff;
-    padding-left: 20px;
+    padding-left: 15px;
 }
 
 blockquote cite {
@@ -119,6 +120,10 @@ blockquote cite {
 
 blockquote em {
     font-weight: 600;
+}
+
+blockquote code {
+    font-size: 0.8rem;
 }
 
 
@@ -192,6 +197,10 @@ ul {
     list-style: disc inside;
 }
 
+.post {
+    max-width: 800px;
+}
+
 .post ul li {
     margin-bottom: 10px;
 }
@@ -200,16 +209,19 @@ ul {
     display: inline;
 }
 
+/* Code */
 .highlight pre {
     margin-bottom: 0;
     margin-top: 0;
-    padding: 20px;
-    background-color: transparent !important;
+    padding: 5px;
+    /* background-color: black !important; */
 }
 
 .highlight {
-    background: 0 0;
-    background-color: #FAFAFA;
+    /* background: 0 0; */
+    font-size: 0.8em;
+    max-width: 800px;
+    overflow-x: auto;
 }
 
 .wrapper {
@@ -219,7 +231,12 @@ ul {
 
 .container {
     max-width: 800px;
-    margin-top: 30px;
+    margin-top: 50px;
+}
+
+.container-wide {
+    max-width: 1000px;
+    margin-top: 50px;
 }
 
 .header {
@@ -229,32 +246,34 @@ ul {
 
 .header .avatar {
     float: left;
-    margin: 0 20px 0 0;
+    margin: -25px 20px 0 0;
 }
+
 .header .avatar img {
     width: 64px;
     height: 64px;
     overflow: hidden;
     border-radius: 100%;
 }
+
 .header .site-title {
-    margin: 0;
+    margin: 0 0 10px 0;
+    line-height: 0.2em;
 }
-    .site-title a {
-        color: #333;
-        text-decoration: none !important;
-    }
-    .site-title a:hover {
-        border-bottom-width: 3px;
-    }
+
+.site-title a {
+    color: #333;
+    text-decoration: none !important;
+}
+
+.site-title a:hover {
+    border-bottom-width: 3px;
+}
 
 .header .site-description {
     display: flex;
     justify-content: space-between;
 }
-    .header .site-description p {
-        margin: 0 0 10px 0;
-    }
 
 .header nav {
     border-top: 1px solid #eee;
@@ -272,12 +291,14 @@ ul {
     list-style: none;
     margin: 0 30px 0 0;
 }
-    .header nav.social a {
-        color: #333;
-    }
-    .header nav.social a:hover {
-        color: #3700ff;
-    }
+
+.header nav.social a {
+    color: #333;
+}
+
+.header nav.social a:hover {
+    color: #3700ff;
+}
 
 .header .site-description nav {
     margin: 0;
@@ -297,14 +318,6 @@ ul {
 
 .header .site-description .scheme-toggle a svg {
     max-height: 15px;
-}
-
-.header .site-description .scheme-toggle a.dark svg {
-    fill: #f8e04f;
-    color: #f8e04f;
-}
-
-.header .site-description .scheme-toggle a.light svg {
     fill: grey;
     color: black;
 }
@@ -325,11 +338,13 @@ ul {
 .post-header {
     display: flex;
 }
+
 .post-header .meta .date {
     margin-right: 30px;
     width: 64px;
     text-align: center;
 }
+
 .post-header .meta .date .day {
     font-family: "Playfair Display", serif;
     font-weight: 700;
@@ -338,10 +353,12 @@ ul {
     display: block;
     margin-bottom: 20px;
 }
+
 .post-header .meta .date .rest {
     display: block;
     font-size: 0.75em;
 }
+
 .post-header h1.title {
     margin: -10px 0 0 0;
 }
@@ -349,6 +366,7 @@ ul {
 .post .title.small {
     margin: 0 0 10px 0;
 }
+
 .post .post-header {
     margin-bottom: 30px;
 }
@@ -362,8 +380,8 @@ ul {
     background-color: #f9f2f4;
 }
 
-.post .tags a {
-    display: inline-block;
+.post .tags a  {
+    display: inline-block; 
     border: 1px solid #3700ff;
     border-radius: 3px;
     padding: 0px 6px;
@@ -387,12 +405,14 @@ ul {
     margin-top: 40px;
     padding: 15px 0;
 }
-    .footer a {
-        color: #666;
-    }
-    .footer a:hover {
-        color: #3700ff;
-    }
+
+.footer a {
+    color: #666;
+}
+
+.footer a:hover {
+    color: #3700ff;
+}
 
 .tag-cloud {
     margin-top: 20px;
@@ -458,29 +478,155 @@ ul {
     .header .nav.social li {
         margin: 0;
     }
+
     .header .nav li {
         margin: 0 10px 0 0;
-        font-size: 0.875em;
+        font-size: 14px;
     }
 
     table {
-      -ms-overflow-style: -ms-autohiding-scrollbar;
-      -webkit-overflow-scrolling: touch;
-      display: block;
-      overflow-x: auto;
-      width: 100%;
+        -ms-overflow-style: -ms-autohiding-scrollbar;
+        -webkit-overflow-scrolling: touch;
+        display: block;
+        overflow-x: auto;
+        width: 100%;
     }
 }
 
-@media (max-width: 400px) {
-    .header .nav.social {
-        min-width: auto;
-        margin: 0;
+.tag-li {
+    display: inline !important;
+}
+
+.back {
+    padding-top: 1em;
+    font-size: 1em;
+}
+
+
+.inline-img {
+    margin: 0 0 0 0 !important;
+    max-width: 100%;
+    display: inline-block !important;
+}
+
+.figcaption-img {
+    margin-bottom: 0px;
+}
+
+figcaption {
+    font-size: 0.9rem;
+    display: block;
+    text-align: center;
+    color: gray;
+}
+
+code:not(pre *)  {
+    font-family: monospace;
+    font-size: 1em;
+    background-color: rgb(239, 241, 243);
+    font-size: 95%;
+    white-space: normal;
+}
+
+code {
+    font-size: 0.8rem;
+    white-space: pre;
+}
+
+.footer-separator {
+    border-top: 0.1em dashed lightgray;
+}
+/* Table of contents */
+
+.toc {
+    line-height: normal;
+}
+
+.show-on-mobile {
+    display: none !important;
+}
+@media screen and (max-width: 1024px) {
+    .hide-on-mobile {
+        display: none !important;
     }
-    .header .site-description {
-        font-size: 1em;
-        margin-top: 10px;
-        font-size: 0.875em;
-        line-height: 1.4em;
+    .show-on-mobile {
+        display: block !important;
     }
+    .container-wide {
+        max-width: 800px;
+    }
+  }
+
+@media only screen and (min-width: 1025px) {
+    .article-nav {
+      display: grid;
+      grid-template-columns: 1fr 15em;
+      max-width: 100em;
+      width: 100%;
+      margin: 0 auto;
+    }
+  }
+
+  nav {
+    position: sticky;
+    top: 2rem;
+    align-self: start;
+  }
+  
+  .section-nav li.active > a {
+    font-weight: 600;
+    color: black;
+  }
+  
+  .section-nav {
+    font-size: smaller;
+    padding-left: 0;
+    border-left: 2px solid #efefef;
+  }
+
+  .section-nav a {
+    text-decoration: none;
+    display: block;
+    color: #ccc;
+    transition: all 50ms ease-in-out; 
+  }
+
+  .section-nav li::marker {
+    color: #ccc;
+  }
+
+  .section-nav a:hover,
+.section-nav a:focus {
+    border: none;
+  color: #666;
+  font-weight: 600;
+}
+
+  .depth-nested {
+    display: none;
+  }
+
+  /* Static TOC */
+  .toc a {
+    text-decoration: none;
+    display: block;
+    color: #515151;
+    transition: all 50ms ease-in-out; 
+  }
+
+  .toc li::marker {
+    color: #515151;
+  }
+
+  .toc a:hover,
+  .toc a:focus {
+    border: none;
+    color: #666;
+    font-weight: 600;
+  }
+  
+
+/* For https://github.com/martignoni/hugo-notice */
+.notice {
+    width: 85%;
 }
